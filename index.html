@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TripWithMe - Explore India's Best Destinations</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #ff6b35;
+            --secondary-color: #f7931e;
+            --accent-color: #138808;
+            --text-dark: #2c2c2c;
+            --text-light: #f5f5f0;
+            --bg-cream: #faf8f3;
+            --card-bg: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Crimson Text', serif;
+            color: var(--text-dark);
+            background-color: var(--bg-cream);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1.5rem 5%;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+            animation: slideDown 0.8s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        nav .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-size: 1.1rem;
+            font-weight: 600;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin-top: 0;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(255, 107, 53, 0.3), rgba(19, 136, 8, 0.4)),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect fill="%23ff6b35" width="1200" height="800"/><rect fill="%23f7931e" width="400" height="800"/><rect fill="%23138808" x="800" width="400" height="800"/><circle cx="600" cy="400" r="200" fill="%23ffffff" opacity="0.1"/><path d="M0 600 Q300 550 600 600 T1200 600 V800 H0 Z" fill="%23ffffff" opacity="0.15"/></svg>');
+            background-size: cover;
+            background-position: center;
+            animation: slowZoom 20s ease-in-out infinite alternate;
+        }
+
+        @keyframes slowZoom {
+            from {
+                transform: scale(1);
+            }
+            to {
+                transform: scale(1.1);
+            }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: var(--text-light);
+            max-width: 900px;
+            padding: 0 2rem;
+            animation: fadeInUp 1.2s ease-out 0.3s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 5.5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 4px 12px rgba(0, 0, 0, 0.4);
+            letter-spacing: -1px;
+        }
+
+        .hero p {
+            font-size: 1.6rem;
+            margin-bottom: 3rem;
+            font-style: italic;
+            opacity: 0.95;
+            animation: fadeInUp 1.2s ease-out 0.6s both;
+            text-shadow: 1px 2px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            background: var(--secondary-color);
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(247, 147, 30, 0.4);
+            animation: fadeInUp 1.2s ease-out 0.9s both;
+        }
+
+        .cta-button:hover {
+            background: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(255, 107, 53, 0.5);
+        }
+
+        /* Destinations Section */
+        .destinations {
+            padding: 8rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+        }
+
+        .section-header p {
+            font-size: 1.3rem;
+            color: #666;
+            margin-top: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .destinations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .destination-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            cursor: pointer;
+        }
+
+        .destination-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        }
+
+        .destination-img-container {
+            position: relative;
+            height: 280px;
+            overflow: hidden;
+        }
+
+        .destination-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .destination-card:hover .destination-image {
+            transform: scale(1.1);
+        }
+
+        .destination-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--primary-color);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .destination-content {
+            padding: 2rem;
+        }
+
+        .destination-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .destination-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .destination-location {
+            font-size: 1rem;
+            color: #888;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .destination-description {
+            font-size: 1.05rem;
+            color: #555;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .stay-details {
+            background: #f8f9fa;
+            padding: 1.2rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .stay-details h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stay-options {
+            display: grid;
+            gap: 0.8rem;
+        }
+
+        .stay-option {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem;
+            background: white;
+            border-radius: 8px;
+            border-left: 3px solid var(--secondary-color);
+        }
+
+        .stay-option-name {
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 1rem;
+        }
+
+        .stay-option-type {
+            font-size: 0.85rem;
+            color: #777;
+        }
+
+        .stay-option-price {
+            font-weight: 700;
+            color: var(--accent-color);
+            font-size: 1.1rem;
+        }
+
+        .package-details {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .package-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+            color: #666;
+        }
+
+        .package-item strong {
+            color: var(--text-dark);
+        }
+
+        .price-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1.5rem;
+            border-top: 2px solid #eee;
+        }
+
+        .price-info {
+            flex: 1;
+        }
+
+        .price-label {
+            font-size: 0.9rem;
+            color: #888;
+            margin-bottom: 0.3rem;
+        }
+
+        .price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .price-per {
+            font-size: 0.95rem;
+            color: #666;
+            font-weight: 400;
+        }
+
+        .book-button {
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.3);
+        }
+
+        .book-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
+        }
+
+        /* Features Section */
+        .features {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--text-light);
+            padding: 8rem 5%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .features::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: var(--bg-cream);
+            transform: skewY(-2deg);
+        }
+
+        .features-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .feature-item {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-item h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .feature-item p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            line-height: 1.6;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 8rem 5%;
+            background: var(--bg-cream);
+        }
+
+        .testimonials-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            border-left: 5px solid var(--secondary-color);
+            transition: transform 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .testimonial-text {
+            font-size: 1.15rem;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .author-details h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            margin-bottom: 0.3rem;
+        }
+
+        .author-details p {
+            color: #888;
+            font-size: 0.95rem;
+        }
+
+        .rating {
+            color: var(--secondary-color);
+            font-size: 1rem;
+            margin-top: 0.3rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text-dark);
+            color: var(--text-light);
+            padding: 4rem 5%;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .social-icon:hover {
+            background: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            margin-top: 2rem;
+            opacity: 0.7;
+            font-size: 0.95rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 1.5rem;
+                font-size: 0.95rem;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .section-header h2 {
+                font-size: 2.5rem;
+            }
+
+            .destinations-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .testimonials-container {
+                grid-template-columns: 1fr;
+            }
+
+            .package-details {
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+
+            .price-section {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .book-button {
+                width: 100%;
+            }
+        }
+
+        /* Scroll Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="logo">✈️ TripWithMe</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#destinations">Destinations</a></li>
+                <li><a href="#features">Services</a></li>
+                <li><a href="#testimonials">Reviews</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-background"></div>
+        <div class="hero-content">
+            <h1>TripWithMe</h1>
+            <p>Your perfect companion for exploring the incredible beauty of India</p>
+            <a href="#destinations" class="cta-button">Start Your Journey</a>
+        </div>
+    </section>
+
+    <!-- Destinations Section -->
+    <section id="destinations" class="destinations">
+        <div class="section-header fade-in">
+            <h2>Popular Destinations</h2>
+            <p>Discover India's most beloved travel destinations with exclusive packages and stays</p>
+        </div>
+
+        <div class="destinations-grid">
+            <!-- Goa -->
+            <div class="destination-card fade-in">
+                <div class="destination-img-container">
+                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 280'><defs><linearGradient id='goa' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' style='stop-color:%234facfe'/><stop offset='100%25' style='stop-color:%2300f2fe'/></linearGradient></defs><rect fill='url(%23goa)' width='400' height='280'/><circle cx='320' cy='60' r='40' fill='%23FFD93D' opacity='0.8'/><ellipse cx='200' cy='200' rx='150' ry='30' fill='%23ffffff' opacity='0.3'/><path d='M0 180 Q100 160 200 180 T400 180 V280 H0 Z' fill='%23F4A261' opacity='0.6'/></svg>" alt="Goa" class="destination-image">
+                    <div class="destination-badge">⭐ Most Popular</div>
+                </div>
+                <div class="destination-content">
+                    <div class="destination-header">
+                        <div>
+                            <h3>Goa</h3>
+                            <div class="destination-location">📍 Goa, India</div>
+                        </div>
+                    </div>
+                    <p class="destination-description">Sun-kissed beaches, vibrant nightlife, Portuguese heritage, and water sports paradise</p>
+                    
+                    <div class="stay-details">
+                        <h4>🏨 Accommodation Options</h4>
+                        <div class="stay-options">
+                            <div class="stay-option">
+                                <div>
+                                    <div class="stay-option-name">Beach Resort</div>
+                                    <div class="stay-option-type">4⭐ • Calangute Beach</div>
+                                </div>
+                                <div class="stay-option-price">₹3,500/night</div>
+                            </div>
+                            <div class="stay-option">
+                                <div>
+                                    <div class="stay-option-name">Luxury Villa</div>
+                                    <div class="stay-option-type">5⭐ • Private Pool</div>
+                                </div>
+                                <div class="stay-option-price">₹8,500/night</div>
+                            </div>
+                            <div class="stay-option">
+                                <div>
+                                    <div class="stay-option-name">Budget Hotel</div>
+                                    <div class="stay-option-type">3⭐ • Baga Beach</div>
+                                </div>
+                                <div class="stay-option-price">₹1,800/night</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="package-details">
+                        <div class="package-item">📅 <strong>4N/5D</strong></div>
+                        <div class="package-item">🍽️ <strong>Meals Included</strong></div>
+                        <div class="package-item">🚗 <strong>Airport Transfer</strong></div>
+                        <div class="package-item">🎯 <strong>Sightseeing</strong></div>
+                    </div>
+
+                    <div class="price-section">
+                        <div class="price-info">
+                            <div class="price-label">Starting from</div>
+                            <div class="price">₹15,999 <span class="price-per">per person</span></div>
+                        </div>
+                        <button class="book-button">Book Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Manali -->
+            <div class="destination-card fade-in">
+                <div class="destination-img-container">
+                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 280'><defs><linearGradient id='manali' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' style='stop-color:%23667eea'/><stop offset='100%25' style='stop-color:%23764ba2'/></linearGradient></defs><rect fill='url(%23manali)' width='400' height='280'/><polygon points='0,280 100,120 200,180 300,100 400,150 400,280' fill='%23ffffff' opacity='0.3'/><polygon points='0,280 150,80 250,140 400,100 400,280' fill='%23ffffff' opacity='0.2'/><circle cx='100' cy='50' r='30' fill='%23FFE5B4' opacity='0.4'/></svg>" alt="Manali" class="destination-image">
+                    <div class="destination-badge">❄️ Adventure</div>
+                </div>
+                <div class="destination-content">
+                    <div class="destination-header">
+                        <div>
+                            <h3>Manali</h3>
+                            <div class="destination-location">📍 Himachal Pradesh</div>
+                        </div>
+                    </div>
+                    <p class="destination-description">Himalayan paradise with snow-capped mountains, adventure sports, and serene valleys</p>
+                    
+                    <div class="stay-details">
+                        <h4>🏨 Accommodation Options</h4>
+                        <div class="stay-options">
+                            <div class="stay-option">
+                                <div>
+                                    <div class="stay-option-name">Mountain Resort</div>
+                                    <div class="stay-option-type">4⭐ • Solang Valley View</div>
+                                </div>
+                                <div class="stay-option-price">₹4,200/night</div>
+                            </div>
+                            <div class="stay-option">
+                                <div>
+                                    <div class="stay-option-name">Heritage Hotel</div>
+                                    <div class="stay-option-type">5⭐ • Old Manali</div>
+                                </div>
+                                <div class="stay-option-price">₹7,500/night</div>
+                            </div>
+                            <div class="stay-option">
+                                <div>
+                                    <div class="stay-option-name">Homestay</div>
+                                    <div class="stay-option-type">Local Experience</div>
+                                </div>
+                                <div class="stay-option-price">₹2,000/night</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="package-details">
+                        <div class="package-item">📅 <strong>5N/6D</strong></div>
+                        <div class="package-item">🍽️ <strong>Breakfast & Dinner</strong></div>
+                        <div class="package-item">🚙 <strong>Cab Included</strong></div>
+                        <div class="package-item">⛷️ <strong>Adventure Activities</strong></div>
+                    </div>
+
+                    <div class="price-section">
+                        <div class="price-info">
+                            <div class="price-label">Starting from</div>
+                            <div class="price">₹18,499 <span class="price-per">per person</span></div>
+                        </div>
+                        <button class="book-button">Book Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Jaipur -->
+            <div class="destination-card fade-in">
+                <div class="destination-img-container">
+                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 280'><defs><linearGradient id='jaipur' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' style='stop-color:%23f093fb'/><stop offset='100%25' style='stop-color:%23f5576c'/></linearGradient></defs><rect fill='url(%23jaipur)' width='400' height='280'/><rect x='150' y='80' width='100' height='120' fill='%23ffffff' opacity='0.3'/><rect x='140' y='70' width='120' height='20' fill='%23ffffff' opacity='0.4'/><polygon points='200,50 140,70 260,70' fill='%23ffffff' opacity='0.35'/><circle cx='320' cy='60' r='35' fill='%23FFD93D' opacity='0.6'/></svg>" alt="Jaipur" class="destination-image">
+                    <div class="destination-badge">🏰 Heritage</div>
+                </div>
+                <div class="destination-content">
+                    <div class="destination-header">
+                        <div>
+                            <h3>Jaipur</h3>
+                            <div class="destination-location">📍 Rajasthan</div>
+                        </div>
+                    </div>
+                    <p class="destination-description">The Pink City featuring majestic forts, royal palaces, and vibrant Rajasthani culture</p>
+                    
+                    <div class="stay-details">
+                        <h4>🏨 Accommodation Options</h4>
+                        <div class="stay-options">
+                            <div class="stay-option">
+                                <div>
+                                    <div class="stay-option-name">Heritage Haveli</div>
+                                    <div class="stay-option-type">4⭐ • Traditional Architecture</div>
+                                </div>
+                                <div class="stay-option-price">₹3,800/night</div>
+                            </div>
+                            <div class="stay-option">
+                                <div>
+                                    <div class="stay-option-name">Palace Hotel</div>
+                                    <div class="stay-option-type">5⭐ • Royal Experience</div>
+                                </div>
+                                <div class="stay-option-price">₹9,500/night</div>
+                            </div>
+                            <div class="stay-option">
+                                <div>
+                                    <div class="stay-option-name">City Hotel</div>
+                                    <div class="stay-option-type">3⭐ • Central Location</div>
+                                </div>
+                                <div class="stay-option-price">₹2,200/night</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="package-details">
+                        <div class="package-item">📅 <strong>3N/4D</strong></div>
+                        <div class="package-item">🍽️ <strong>All Meals</strong></div>
+                        <div class="package-item">🚗 <strong>Cab & Guide</strong></div>
+                        <div class="package-item">🎭 <strong>Cultural Shows</strong></div>
+                    </div>
+
+                    <div class="price-section">
+                        <div class="price-info">
+                            <div class="price-label">Starting from</div>
+                            <div class="price">₹12,999 <span class="price-per">per person</span></div>
+                        </div>
+                        <button class="book-button">Book Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kerala -->
+            <div class="destination-card fade-in">
+                <div class="destination-img-container">
+                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 280'><defs><linearGradient id='kerala' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' style='stop-color:%2356ab2f'/><stop offset='100%25' style='stop-color:%23a8e063'/></linearGradient></defs><rect fill='url(%23kerala)' width='400' height='280'/><ellipse cx='200' cy='200' rx='180' ry='40' fill='%234A90E2' opacity='0.5'/><rect x='150' y='150' width='100' height='60' rx='10' fill='%238B4513' opacity='0.6'/><path d='M0 220 Q100 200 200 220 T400 220 V280 H0 Z' fill='%234A90E2' opacity='0.4'/><circle cx='80' cy='80' r='50' fill='%23228B22' opacity='0.3'/></svg>" alt="Kerala" class="destination-image">
+                    <div class="destination-badge">🌴 Backwaters</div>
+                </div>
+                <div class="destination-content">
+                    <div class="destination-header">
+                        <div>
+                            <h3>Kerala</h3>
+                            <div class="destination-location">📍 God's Own Country</div>
+                        </div>
+                    </div>
+                    <p class="destination-description">Tranquil backwaters, lush hill stations, Ayurvedic treatments, and pristine beaches</p>
+                    
+                    <div class="stay-details">
+                        <h4>🏨 Accommodation Options</h4>
+                        <div class="stay-options">
+                            <div class="stay-option">
+                                <div>
+                                    <div class="stay-option-name">Houseboat</div>
+                                    <div class="stay-option-type">Deluxe • Alleppey Backwaters</div>
+                                </div>
+                                <div class="stay-option-price">₹12,000/night</div>
+                            </div>
+                            <div class="stay-option">
+                                <div>
+                                    <div class="stay-option-name">Beach Resort</div>
+                                    <div class="stay-option-type">5⭐ • Kovalam Beach</div>
+                                </div>
+                                <div class="stay-option-price">₹6,500/night</div>
+                            </div>
+                            <div class="stay-option">
+                                <div>
+                                    <div class="stay-option-name">Hill Station Resort</div>
+                                    <div class="stay-option-type">4⭐ • Munnar Tea Gardens</div>
+                                </div>
+                                <div class="stay-option-price">₹4,000/night</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="package-details">
+                        <div class="package-item">📅 <strong>6N/7D</strong></div>
+                        <div class="package-item">🍽️ <strong>Kerala Cuisine</strong></div>
+                        <div class="package-item">🛥️ <strong>Houseboat Stay</strong></div>
+                        <div class="package-item">💆 <strong>Ayurveda Spa</strong></div>
+                    </div>
+
+                    <div class="price-section">
+                        <div class="price-info">
+                            <div class="price-label">Starting from</div>
+                            <div class="price">₹24,999 <span class="price-per">per person</span></div>
+                        </div>
+                        <button class="book-button">Book Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Udaipur -->
+            <div class="destination-card fade-in">
+                <div class="destination-img-container">
+                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 280'><defs><linearGradient id='udaipur' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' style='stop-color:%23fa709a'/><stop offset='100%25' style='stop-color:%23fee140'/></linearGradient></defs><rect fill='url(%23udaipur)' width='400' height='280'/><ellipse cx='200' cy='180' rx='150' ry='30' fill='%234169E1' opacity='0.5'/><rect x='160' y='120' width='80' height='80' fill='%23ffffff' opacity='0.4'/><polygon points='200,100 160,120 240,120' fill='%23ffffff' opacity='0.3'/><circle cx='300' cy='70' r='30' fill='%23FFD700' opacity='0.6'/></svg>" alt="Udaipur" class="destination-image">
+                    <div class="destination-badge">👑 Royal</div>
+                </div>
+                <div class="destination-content">
+                    <div class="destination-header">
+                        <div>
+                            <h3>Udaipur</h3>
+                            <div class="destination-location">📍 Rajasthan</div>
+                        </div>
+                    </div>
+                    <p class="destination-description">City of Lakes with stunning palaces, romantic boat rides, and royal architecture</p>
+                    
+                    <div class="stay-details">
+                        <h4>🏨 Accommodation Options</h4>
+                        <div class="stay-options">
+                            <div class="stay-option">
+                                <div>
+                                    <div class="stay-option-name">Lake Palace Hotel</div>
+                                    <div class="stay-option-type">5⭐ • Lake Pichola</div>
+                                </div>
+                                <div class="stay-option-price">₹15,000/night</div>
+                            </div>
+                            <div class="stay-option">
+                                <div>
+                                    <div class="stay-option-name">Lakeside Resort</div>
+                                    <div class="stay-option-type">4⭐ • Fateh Sagar Lake</div>
+                                </div>
+                                <div class="stay-option-price">₹5,500/night</div>
+                            </div>
+                            <div class="stay-option">
+                                <div>
+                                    <div class="stay-option-name">Heritage Hotel</div>
+                                    <div class="stay-option-type">3⭐ • City Center</div>
+                                </div>
+                                <div class="stay-option-price">₹2,800/night</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="package-details">
+                        <div class="package-item">📅 <strong>3N/4D</strong></div>
+                        <div class="package-item">🍽️ <strong>Rajasthani Thali</strong></div>
+                        <div class="package-item">🚤 <strong>Boat Rides</strong></div>
+                        <div class="package-item">🎪 <strong>Palace Tours</strong></div>
+                    </div>
+
+                    <div class="price-section">
+                        <div class="price-info">
+                            <div class="price-label">Starting from</div>
+                            <div class="price">₹16,999 <span class="price-per">per person</span></div>
+                        </div>
+                        <button class="book-button">Book Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Agra -->
+            <div class="destination-card fade-in">
+                <div class="destination-img-container">
+                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 280'><defs><linearGradient id='agra' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' style='stop-color:%23ffecd2'/><stop offset='100%25' style='stop-color:%23fcb69f'/></linearGradient></defs><rect fill='url(%23agra)' width='400' height='280'/><ellipse cx='200' cy='180' rx='100' ry='30' fill='%23ffffff' opacity='0.6'/><rect x='170' y='120' width='60' height='70' fill='%23ffffff' opacity='0.8'/><circle cx='200' cy='115' r='25' fill='%23ffffff' opacity='0.7'/><polygon points='200,90 170,120 230,120' fill='%23ffffff' opacity='0.75'/><circle cx='80' cy='60' r='35' fill='%23FFD700' opacity='0.5'/></svg>" alt="Agra" class="destination-image">
+                    <div class="destination-badge">🕌 Wonder</div>
+                </div>
+                <div class="destination-content">
+                    <div class="destination-header">
+                        <div>
+                            <h3>Agra</h3>
+                            <div class="destination-location">📍 Uttar Pradesh</div>
+                        </div>
+                    </div>
+                    <p class="destination-description">Home to the iconic Taj Mahal, Agra Fort, and rich Mughal heritage</p>
+                    
+                    <div class="stay-details">
+                        <h4>🏨 Accommodation Options</h4>
+                        <div class="stay-options">
+                            <div class="stay-option">
+                                <div>
+                                    <div class="stay-option-name">Taj View Hotel</div>
+                                    <div class="stay-option-type">5⭐ • Taj Facing Rooms</div>
+                                </div>
+                                <div class="stay-option-price">₹8,000/night</div>
+                            </div>
+                            <div class="stay-option">
+                                <div>
+                                    <div class="stay-option-name">Luxury Resort</div>
+                                    <div class="stay-option-type">4⭐ • Near Taj Mahal</div>
+                                </div>
+                                <div class="stay-option-price">₹4,500/night</div>
+                            </div>
+                            <div class="stay-option">
+                                <div>
+                                    <div class="stay-option-name">Budget Inn</div>
+                                    <div class="stay-option-type">3⭐ • Walking Distance</div>
+                                </div>
+                                <div class="stay-option-price">₹1,500/night</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="package-details">
+                        <div class="package-item">📅 <strong>2N/3D</strong></div>
+                        <div class="package-item">🍽️ <strong>Breakfast Included</strong></div>
+                        <div class="package-item">🚗 <strong>Local Transport</strong></div>
+                        <div class="package-item">👨‍🏫 <strong>Expert Guide</strong></div>
+                    </div>
+
+                    <div class="price-section">
+                        <div class="price-info">
+                            <div class="price-label">Starting from</div>
+                            <div class="price">₹9,999 <span class="price-per">per person</span></div>
+                        </div>
+                        <button class="book-button">Book Now</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="section-header">
+            <h2>Why Choose TripWithMe</h2>
+            <p>Your trusted travel partner for unforgettable Indian adventures</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-item fade-in">
+                <div class="feature-icon">💰</div>
+                <h3>Best Price Guarantee</h3>
+                <p>Competitive pricing with no hidden charges. Get the best deals on hotels and packages across India</p>
+            </div>
+
+            <div class="feature-item fade-in">
+                <div class="feature-icon">🎫</div>
+                <h3>Easy Booking</h3>
+                <p>Simple and secure booking process with instant confirmation and flexible payment options</p>
+            </div>
+
+            <div class="feature-item fade-in">
+                <div class="feature-icon">🛡️</div>
+                <h3>24/7 Support</h3>
+                <p>Round-the-clock customer support for any queries or assistance during your travel journey</p>
+            </div>
+
+            <div class="feature-item fade-in">
+                <div class="feature-icon">⭐</div>
+                <h3>Verified Hotels</h3>
+                <p>All accommodations are personally verified for quality, safety, and customer satisfaction</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials">
+        <div class="section-header fade-in">
+            <h2>Happy Travelers</h2>
+            <p>Read what our customers say about their TripWithMe experiences</p>
+        </div>
+
+        <div class="testimonials-container">
+            <div class="testimonial-card fade-in">
+                <p class="testimonial-text">"TripWithMe made our Goa vacation absolutely perfect! The beach resort was stunning and the entire booking process was seamless. Highly recommend!"</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">RP</div>
+                    <div class="author-details">
+                        <h4>Rajesh Patel</h4>
+                        <p>Goa Beach Holiday</p>
+                        <div class="rating">⭐⭐⭐⭐⭐</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card fade-in">
+                <p class="testimonial-text">"The Kerala backwaters houseboat experience was magical! TripWithMe provided excellent service and the itinerary was perfectly planned. Worth every rupee!"</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">PS</div>
+                    <div class="author-details">
+                        <h4>Priya Sharma</h4>
+                        <p>Kerala Backwaters Tour</p>
+                        <div class="rating">⭐⭐⭐⭐⭐</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card fade-in">
+                <p class="testimonial-text">"Amazing Manali adventure! The hotel had breathtaking mountain views and all activities were well organized. TripWithMe exceeded our expectations!"</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">AK</div>
+                    <div class="author-details">
+                        <h4>Amit Kumar</h4>
+                        <p>Manali Adventure Package</p>
+                        <div class="rating">⭐⭐⭐⭐⭐</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-content">
+            <div class="footer-logo">✈️ TripWithMe</div>
+            <p style="margin-bottom: 2rem; opacity: 0.8;">Your perfect companion for exploring the incredible beauty of India</p>
+            
+            <div class="footer-links">
+                <a href="#home">Home</a>
+                <a href="#destinations">Destinations</a>
+                <a href="#features">Services</a>
+                <a href="#testimonials">Reviews</a>
+                <a href="#about">About Us</a>
+                <a href="#terms">Terms & Conditions</a>
+            </div>
+
+            <div class="social-icons">
+                <div class="social-icon">📘</div>
+                <div class="social-icon">📷</div>
+                <div class="social-icon">🐦</div>
+                <div class="social-icon">💼</div>
+            </div>
+
+            <div class="copyright">
+                <p>&copy; 2026 TripWithMe. All rights reserved.</p>
+                <p style="margin-top: 0.5rem;">📧 contact@tripwithme.com | 📞 +91-9876543210 | 🏢 Mumbai, India</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll Animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Book Now Button Interaction
+        document.querySelectorAll('.book-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const destination = this.closest('.destination-card').querySelector('h3').textContent;
+                alert(`🎉 Booking initiated for ${destination}!\n\nThank you for choosing TripWithMe. In a real website, this would redirect to our secure booking page.`);
+            });
+        });
+    </script>
+</body>
+</html>
